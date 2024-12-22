@@ -9,6 +9,9 @@
 # Add the .idea folder to .gitignore
 .idea/
 
+# Data Eng Ordner soll komplett ignoriert werden
+Data Eng/
+
 # Node modules
 node_modules/
 
@@ -45,4 +48,5 @@ target/
 
 
 # macOS specific
-#*.DS_Store
+*.DS_Store
+
