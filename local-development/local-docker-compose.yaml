@@ -14,7 +14,7 @@ version: '0.7'
 services:
   flask-app:
     build:
-      context: ../simple-flask-app
+      context: ../backend
       dockerfile: Dockerfile
     environment:
       - DB_HOST=dev-stundenplan-postgres
