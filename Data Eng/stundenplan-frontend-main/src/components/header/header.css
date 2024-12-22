@@ -1,0 +1,14 @@
+.header__toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__img-size {
+  height: 2rem;
+}
+
+.header__account-section {
+  display: flex;
+  align-items: center;
+  color: var(--xsoft-blue);
+}

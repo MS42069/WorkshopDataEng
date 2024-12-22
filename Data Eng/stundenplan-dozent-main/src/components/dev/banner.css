@@ -1,0 +1,18 @@
+.infoBox {
+    padding: 10px 10px 12px 18px;
+    margin-left: 16px;
+    margin-right: 16px;
+    border-style: solid;
+    border-width: 1px;
+    color: #000;
+    border-radius: 3px;
+    border-color: red;
+    background: #FF6961;
+    width: 100%;
+}
+
+.boxContent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

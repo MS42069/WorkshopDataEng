@@ -1,0 +1,24 @@
+* {
+  outline: 0px solid black;
+}
+
+.single-view-subject-semester {
+  display: flex;
+  flex-direction: column;
+}
+
+.single-view-room .single-view-room__text-field:nth-of-type(even) {
+  margin-left: 1rem;
+}
+
+.single-view-subject-semester .single-view-subject-semester__text-field {
+  width: 100%;
+}
+
+.single-view-subject-semester__form-row-widht {
+  width: 100%;
+}
+
+.single-view-subject-semester__status-margin-top {
+  margin-top: 1rem;
+}

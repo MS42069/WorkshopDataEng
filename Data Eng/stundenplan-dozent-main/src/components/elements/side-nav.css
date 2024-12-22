@@ -1,0 +1,7 @@
+.side-nav__flex-content {
+  display: flex !important;
+  justify-content: space-between !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+  height: 100% !important;
+}

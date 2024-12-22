@@ -1,0 +1,40 @@
+.timetables-overview__table-container {
+  border: 1px solid rgba(224, 224, 224, 1);
+}
+
+.TableBody tr *:last-child {
+  text-align: right !important;
+}
+
+.timetables-overview__table-body {
+  background-color: var(--xsoft-grey);
+}
+
+.Table-timetables-overview {
+  margin-bottom: 1rem;
+  overflow-y: scroll;
+}
+
+.TableCellAddIcon {
+  text-align: right !important;
+}
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-end;
+}
+
+.searchBar__input:focus {
+  color: #ffffff !important;
+}
+
+.timetables-overview-completion__flex {
+  display: flex;
+  align-items: center;
+  /*TODO Was sollte hier stehen? Das funktioniert so nicht.. */
+/*align-content: right;
+justify-content: right;
+*/
+}

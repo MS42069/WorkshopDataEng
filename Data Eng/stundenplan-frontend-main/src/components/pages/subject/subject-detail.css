@@ -1,0 +1,21 @@
+* {
+  outline: 0px solid black;
+}
+
+.single-view-subject {
+  display: flex;
+  flex-direction: column;
+}
+
+.single-view-subject .single-view-subject__text-field:nth-of-type(even) {
+  margin-left: 1rem;
+}
+
+.single-view-subject .single-view-subject__text-field {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.single-view-subject__form-row-widht {
+  width: 100%;
+}

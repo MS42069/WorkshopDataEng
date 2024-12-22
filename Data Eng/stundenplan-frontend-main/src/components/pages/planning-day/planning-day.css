@@ -1,0 +1,27 @@
+.planning-week__table-border {
+  border: 1px solid rgba(224, 224, 224, 1);
+}
+
+.planning-day__list--fixed-size {
+  width: 30%;
+}
+
+.planning-day__list--margin {
+  margin-right: 1rem;
+}
+
+.planning-day__container--margin {
+  margin-top: -10px;
+}
+
+.planning-day__list-header-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.planning-day__list-item-secondary--selected {
+  color: white;
+}

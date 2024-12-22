@@ -1,0 +1,17 @@
+.planning-planning-cell__footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.planning-planning-cell__footer > * {
+  font-size: small;
+  display: flex;
+}
+
+.readonly-planning-overview-cell__cell-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}

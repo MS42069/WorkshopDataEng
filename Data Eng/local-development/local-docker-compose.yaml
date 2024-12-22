@@ -1,0 +1,116 @@
+# 
+# To run this docker compose file you have to create a .env file with the following variables:
+#
+# DB_LOKAL - path to the folder of your lokal database -- be aware that you should NOT use one database for two docker container
+# FRONTEND_FOLDER - path to your 'stundenplan-frontend' folder
+# DOZENT_FOLDER - path to your 'stundenplan-dozent' folder
+# BACKEND_FOLDER - path to your 'stundenplan-backend' folder
+#
+# NOTE: The paths above should *not* include a trailing slash
+#
+# After that you can start this docker compose file.
+
+version: '0.7'
+services:
+  dev-traefik:
+    image: traefik:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "8081:8080"
+      - "80:80"
+      - "443:443"
+
+# PgAdmin container to allow easier control of the postgres container
+  # Does initialize the connection automatically with the 'servers.json' file
+  stundenplan-pgadmin:
+    image: "dpage/pgadmin4:latest"
+    restart: always
+    depends_on:
+      - dev-stundenplan-postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: pg_password
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      SCRIPT_NAME: "/pgadmin"
+    ports:
+      - "5050:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.stundenplan-pgadmin.entrypoints=web"
+      - "traefik.http.routers.stundenplan-pgadmin.rule=Host(`${HOST:-localhost}`) && PathPrefix(`/pgadmin`)"
+
+  dev-stundenplan-postgres:
+    image: postgres:15
+    restart: unless-stopped
+    user: 1000:1000 # Wenn Berechtigung Fehler kann das hier raus
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_HOST_AUTH_METHOD: "md5"
+    volumes:
+      # Mount lokal development db to image
+      - ${DB_LOKAL:-/var/lib/postgresql/dev/data}:/var/lib/postgresql/data
+    ports:
+      # Expose port for external debugging
+      - "5432:5432"
+
+  # Image for local development
+  stundenplan-backend:
+    build:
+      dockerfile: ${BACKEND_FOLDER}/docker/Dockerfile
+      context: ${BACKEND_FOLDER}
+    restart: unless-stopped
+    depends_on: 
+     -  dev-stundenplan-postgres
+    environment:
+      DB_HOST: 'dev-stundenplan-postgres'
+    ports:
+      - "8080:8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.stundenplan-backend.entrypoints=web"
+      - "traefik.http.routers.stundenplan-backend.rule=Host(`${HOST:-localhost}`) && PathPrefix(`/api/v1`)"
+  local-development-frontend:
+    image: ghcr.io/softwareprojektdockerrunner/custom-dev-image:latest
+    user: 1000:1000
+    depends_on:
+      - stundenplan-backend    
+    # Expose port to host to see changes
+    ports:
+      - 3000:3000
+    volumes:
+      # Mount folder to be run through the image
+      - ${FRONTEND_FOLDER}:/app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.local-development-frontend.entrypoints=web"
+      - "traefik.http.routers.local-development-frontend.rule=Host(`${HOST:-localhost}`) && PathPrefix(`/`)"
+    command: /bin/sh -c "npm install && mkdir -p node_modules/node-sass/vendor/linux_musl-x64-93 && curl -L https://github.com/sass/node-sass/releases/download/v7.0.3/linux_musl-x64-93_binding.node -o node_modules/node-sass/vendor/linux_musl-x64-93/binding.node && npm start"
+
+  # Dozent frontend
+  # to be started by the custom-dev-image
+  local-development-dozent:
+    image: ghcr.io/softwareprojektdockerrunner/custom-dev-image:latest
+    user: 1000:1000
+    depends_on:
+      - stundenplan-backend    
+    # Expose port to host to see changes
+    ports:
+      - 3001:3000
+    volumes:
+      # Mount folder to be run through the image
+      - ${DOZENT_FOLDER}:/app 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.local-development-dozent.entrypoints=web"
+      - "traefik.http.routers.local-development-dozent.rule=Host(`${HOST:-localhost}`) && PathPrefix(`/dozent`)"
+    command: /bin/sh -c "npm install && mkdir -p node_modules/node-sass/vendor/linux_musl-x64-93 && curl -L https://github.com/sass/node-sass/releases/download/v7.0.3/linux_musl-x64-93_binding.node -o node_modules/node-sass/vendor/linux_musl-x64-93/binding.node && npm start"
+

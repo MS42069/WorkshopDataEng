@@ -1,0 +1,35 @@
+* {
+  outline: 0px solid black;
+}
+
+.degree-detail-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.degree-detail-view .degree-detail-view__text-field:nth-of-type(even) {
+  margin-left: 1rem;
+}
+
+.degree-detail-view .degree-detail-view__text-field {
+  padding-bottom: 1rem;
+  width: 100%;
+}
+
+.TextfieldIdentifier {
+  margin-top: 1rem;
+}
+
+.TextfieldAbbreviation {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.TextfieldSeats {
+  margin-top: 1rem;
+}
+
+.TextfielDisplayIndex {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
