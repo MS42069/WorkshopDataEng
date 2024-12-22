@@ -12,6 +12,9 @@ DATABASE = {
     'password': 'password'               # Passwort
 }
 
+# TODO Weboberfläche(n) bauen -> Kann man bausteine der Stundenplansoftware nutzen um einheitlichkeit zu wahren und zeit zu sparen?
+# TODO Funktionen der Analyse implementieren
+
 @app.route('/test-db', methods=['GET'])
 def test_db_connection():
     try:
