@@ -1,0 +1,138 @@
+table_name,column_name,data_type
+breaks_between_constraints,id,uuid
+breaks_between_constraints,constraint_value,character varying
+breaks_between_constraints,employee_abbreviation,character varying
+breaks_between_constraints,is_accepted,boolean
+course_distribution_constraints,id,uuid
+course_distribution_constraints,constraint_value,character varying
+course_distribution_constraints,employee_abbreviation,character varying
+course_events,id,uuid
+course_events,weekday,integer
+course_events,course_id,uuid
+course_events,timetable_id,uuid
+course_events,week,integer
+course_lecturers,fk_course_id,uuid
+course_lecturers,fk_employee_id,uuid
+course_relations,id,uuid
+course_relations,relation_type,character varying
+course_relations,fk_course_a_id,uuid
+course_relations,fk_course_b_id,uuid
+course_timeslots,id,uuid
+course_timeslots,weekday,character varying
+course_timeslots,fk_course_id,uuid
+course_timeslots,fk_timeslot_id,uuid
+course_types,id,uuid
+course_types,name,character varying
+courses,id,uuid
+courses,abbreviation,character varying
+courses,block_size,integer
+courses,casid,character varying
+courses,description,character varying
+courses,name,character varying
+courses,slots_per_week,integer
+courses,weeks_per_semester,integer
+courses,fk_room_type_id,uuid
+courses,fk_timetable_id,uuid
+degree_semesters,id,uuid
+degree_semesters,attendees,integer
+degree_semesters,extension_name,character varying
+degree_semesters,semester_number,integer
+degree_semesters,fk_degree_id,uuid
+degree_semesters,fk_timetable_id,uuid
+degrees,id,uuid
+degrees,name,character varying
+degrees,semester_amount,integer
+degrees,short_name,character varying
+degrees,study_regulation,character varying
+degrees,fk_room_type_id,uuid
+degrees,fk_timetable_id,uuid
+degreesemester_course,fk_degreesemester_id,uuid
+degreesemester_course,fk_course_id,uuid
+employee_app_availabilities,id,uuid
+employee_app_availabilities,end_date,timestamp without time zone
+employee_app_availabilities,start_date,timestamp without time zone
+employee_timeslot_constraints,id,uuid
+employee_timeslot_constraints,constraint_type,character varying
+employee_timeslot_constraints,constraint_value,character varying
+employee_timeslot_constraints,employee_abbreviation,character varying
+employee_timeslot_constraints,end_time,time without time zone
+employee_timeslot_constraints,reason,character varying
+employee_timeslot_constraints,start_time,time without time zone
+employee_timeslot_constraints,timeslot_index,integer
+employee_timeslot_constraints,weekday,character varying
+employee_timeslot_constraints,is_accepted,boolean
+employee_types,id,uuid
+employee_types,name,character varying
+employees,id,uuid
+employees,abbreviation,character varying
+employees,firstname,character varying
+employees,lastname,character varying
+employees,fk_employee_type_id,uuid
+employees,fk_timetable_id,uuid
+flyway_schema_history,installed_rank,integer
+flyway_schema_history,version,character varying
+flyway_schema_history,description,character varying
+flyway_schema_history,type,character varying
+flyway_schema_history,script,character varying
+flyway_schema_history,checksum,integer
+flyway_schema_history,installed_by,character varying
+flyway_schema_history,installed_on,timestamp without time zone
+flyway_schema_history,execution_time,integer
+flyway_schema_history,success,boolean
+free_day_constraints,id,uuid
+free_day_constraints,constraint_value,character varying
+free_day_constraints,employee_abbreviation,character varying
+free_day_constraints,favorite_day,character varying
+lunch_break_constraints,id,uuid
+lunch_break_constraints,constraint_value,character varying
+lunch_break_constraints,employee_abbreviation,character varying
+room_types,id,uuid
+room_types,name,character varying
+room_types,online,boolean
+roomcombinations,id,uuid
+roomcombinations,fk_event_id,uuid
+roomcombinations_rooms,fk_roomcombination_id,uuid
+roomcombinations_rooms,fk_rooms_id,uuid
+rooms,id,uuid
+rooms,abbreviation,character varying
+rooms,capacity,integer
+rooms,identifier,character varying
+rooms,name,character varying
+rooms,fk_room_type_id,uuid
+rooms,fk_timetable_id,uuid
+school_types,id,uuid
+school_types,name,character varying
+semester_types,id,uuid
+semester_types,name,character varying
+special_events,id,uuid
+special_events,end_date,date
+special_events,special_event_type,character varying
+special_events,start_date,date
+special_events,fk_timetable_id,uuid
+subsequent_timeslots_constraints,id,uuid
+subsequent_timeslots_constraints,employee_abbreviation,character varying
+subsequent_timeslots_constraints,timeslot_amount,integer
+subsequent_timeslots_constraints,constraint_value,character varying
+timeslots,id,uuid
+timeslots,end_time,time without time zone
+timeslots,index,integer
+timeslots,start_time,time without time zone
+timeslots,fk_timetable_id,uuid
+timetables,id,uuid
+timetables,end_date,date
+timetables,name,character varying
+timetables,number_of_weeks,integer
+timetables,start_date,date
+timetables,fk_semester_type_id,uuid
+users,id,uuid
+users,display_name,character varying
+users,password,character varying
+users,username,character varying
+week_events_rooms,week_event_id,uuid
+week_events_rooms,room_id,uuid
+week_events_timeslots,week_event_id,uuid
+week_events_timeslots,timeslot_id,uuid
+worktimes,id,uuid
+worktimes,weekday,character varying
+worktimes,fk_employee_id,uuid
+worktimes,fk_timeslot_id,uuid
