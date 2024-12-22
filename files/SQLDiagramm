@@ -1,0 +1,75 @@
+digraph "public" {
+
+splines  = ortho;
+fontname = "Inconsolata";
+
+node [colorscheme = ylgnbu4];
+edge [colorscheme = dark28, dir = both];
+
+breaks_between_constraints       [shape = record, label = "{ breaks_between_constraints |  constraint_value : varchar(255)\l  employee_abbreviation : varchar(255)\l  is_accepted : boolean\l| id : uuid\l }"];
+course_distribution_constraints  [shape = record, label = "{ course_distribution_constraints |  constraint_value : varchar(255)\l  employee_abbreviation : varchar(255)\l| id : uuid\l }"];
+course_events                    [shape = record, label = "{ course_events |  weekday : integer\l  course_id : uuid\l  timetable_id : uuid\l  week : integer\l| id : uuid\l }"];
+course_lecturers                 [shape = record, label = "{ course_lecturers |  fk_course_id : uuid\l  fk_employee_id : uuid\l }"];
+course_relations                 [shape = record, label = "{ course_relations |  relation_type : varchar(255)\l  fk_course_a_id : uuid\l  fk_course_b_id : uuid\l| id : uuid\l }"];
+course_timeslots                 [shape = record, label = "{ course_timeslots |  weekday : varchar(255)\l  fk_course_id : uuid\l  fk_timeslot_id : uuid\l| id : uuid\l }"];
+course_types                     [shape = record, label = "{ course_types |  name : varchar(255)\l| id : uuid\l }"];
+courses                          [shape = record, label = "{ courses |  abbreviation : varchar(255)\l  block_size : integer\l  casid : varchar(255)\l  description : varchar(255)\l  name : varchar(255)\l  slots_per_week : integer\l  weeks_per_semester : integer\l  fk_room_type_id : uuid\l  fk_timetable_id : uuid\l| id : uuid\l }"];
+degree_semesters                 [shape = record, label = "{ degree_semesters |  attendees : integer\l  extension_name : varchar(255)\l  semester_number : integer\l  fk_degree_id : uuid\l  fk_timetable_id : uuid\l| id : uuid\l }"];
+degrees                          [shape = record, label = "{ degrees |  name : varchar(255)\l  semester_amount : integer\l  short_name : varchar(255)\l  study_regulation : varchar(255)\l  fk_room_type_id : uuid\l  fk_timetable_id : uuid\l| id : uuid\l }"];
+degreesemester_course            [shape = record, label = "{ degreesemester_course |  fk_degreesemester_id : uuid\l  fk_course_id : uuid\l }"];
+employee_app_availabilities      [shape = record, label = "{ employee_app_availabilities |  end_date : timestamp\l  start_date : timestamp\l| id : uuid\l }"];
+employee_timeslot_constraints    [shape = record, label = "{ employee_timeslot_constraints |  constraint_type : varchar(255)\l  constraint_value : varchar(255)\l  employee_abbreviation : varchar(255)\l  end_time : time\l  reason : varchar(255)\l  start_time : time\l  timeslot_index : integer\l  weekday : varchar(255)\l  is_accepted : boolean\l| id : uuid\l }"];
+employee_types                   [shape = record, label = "{ employee_types |  name : varchar(255)\l| id : uuid\l }"];
+employees                        [shape = record, label = "{ employees |  abbreviation : varchar(255)\l  firstname : varchar(255)\l  lastname : varchar(255)\l  fk_employee_type_id : uuid\l  fk_timetable_id : uuid\l| id : uuid\l }"];
+flyway_schema_history            [shape = record, label = "{ flyway_schema_history |  version : varchar(50)\l  description : varchar(200)\l  type : varchar(20)\l  script : varchar(1000)\l  checksum : integer\l  installed_by : varchar(100)\l  installed_on : timestamp\l  execution_time : integer\l  success : boolean\l| installed_rank : integer\l }"];
+free_day_constraints             [shape = record, label = "{ free_day_constraints |  constraint_value : varchar(255)\l  employee_abbreviation : varchar(255)\l  favorite_day : varchar(255)\l| id : uuid\l }"];
+lunch_break_constraints          [shape = record, label = "{ lunch_break_constraints |  constraint_value : varchar(255)\l  employee_abbreviation : varchar(255)\l| id : uuid\l }"];
+room_types                       [shape = record, label = "{ room_types |  name : varchar(255)\l  online : boolean\l| id : uuid\l }"];
+roomcombinations                 [shape = record, label = "{ roomcombinations |  fk_event_id : uuid\l| id : uuid\l }"];
+roomcombinations_rooms           [shape = record, label = "{ roomcombinations_rooms |  fk_roomcombination_id : uuid\l  fk_rooms_id : uuid\l }"];
+rooms                            [shape = record, label = "{ rooms |  abbreviation : varchar(255)\l  capacity : integer\l  identifier : varchar(255)\l  name : varchar(255)\l  fk_room_type_id : uuid\l  fk_timetable_id : uuid\l| id : uuid\l }"];
+school_types                     [shape = record, label = "{ school_types |  name : varchar(255)\l| id : uuid\l }"];
+semester_types                   [shape = record, label = "{ semester_types |  name : varchar(255)\l| id : uuid\l }"];
+special_events                   [shape = record, label = "{ special_events |  end_date : date\l  special_event_type : varchar(255)\l  start_date : date\l  fk_timetable_id : uuid\l| id : uuid\l }"];
+subsequent_timeslots_constraints [shape = record, label = "{ subsequent_timeslots_constraints |  employee_abbreviation : varchar(255)\l  timeslot_amount : integer\l  constraint_value : varchar(255)\l| id : uuid\l }"];
+timeslots                        [shape = record, label = "{ timeslots |  end_time : time\l  index : integer\l  start_time : time\l  fk_timetable_id : uuid\l| id : uuid\l }"];
+timetables                       [shape = record, label = "{ timetables |  end_date : date\l  name : varchar(255)\l  number_of_weeks : integer\l  start_date : date\l  fk_semester_type_id : uuid\l| id : uuid\l }"];
+users                            [shape = record, label = "{ users |  display_name : varchar(255)\l  password : varchar(255)\l  username : varchar(255)\l| id : uuid\l }"];
+week_events_rooms                [shape = record, label = "{ week_events_rooms |  week_event_id : uuid\l  room_id : uuid\l }"];
+week_events_timeslots            [shape = record, label = "{ week_events_timeslots |  week_event_id : uuid\l  timeslot_id : uuid\l }"];
+worktimes                        [shape = record, label = "{ worktimes |  weekday : varchar(255)\l  fk_employee_id : uuid\l  fk_timeslot_id : uuid\l| id : uuid\l }"];
+
+course_events                    -> courses                          [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "course_id:id", headlabel = ""];
+course_events                    -> timetables                       [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "timetable_id:id", headlabel = ""];
+course_lecturers                 -> courses                          [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_course_id:id", headlabel = ""];
+course_lecturers                 -> employees                        [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_employee_id:id", headlabel = ""];
+course_relations                 -> courses                          [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_course_b_id:id", headlabel = ""];
+course_relations                 -> courses                          [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_course_a_id:id", headlabel = ""];
+course_timeslots                 -> courses                          [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_course_id:id", headlabel = ""];
+course_timeslots                 -> timeslots                        [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_timeslot_id:id", headlabel = ""];
+courses                          -> course_types                     [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_room_type_id:id", headlabel = ""];
+courses                          -> timetables                       [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_timetable_id:id", headlabel = ""];
+degree_semesters                 -> degrees                          [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_degree_id:id", headlabel = ""];
+degree_semesters                 -> timetables                       [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_timetable_id:id", headlabel = ""];
+degrees                          -> school_types                     [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_room_type_id:id", headlabel = ""];
+degrees                          -> timetables                       [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_timetable_id:id", headlabel = ""];
+degreesemester_course            -> courses                          [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_course_id:id", headlabel = ""];
+degreesemester_course            -> degree_semesters                 [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_degreesemester_id:id", headlabel = ""];
+employees                        -> employee_types                   [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_employee_type_id:id", headlabel = ""];
+employees                        -> timetables                       [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_timetable_id:id", headlabel = ""];
+roomcombinations                 -> courses                          [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_event_id:id", headlabel = ""];
+roomcombinations_rooms           -> roomcombinations                 [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_roomcombination_id:id", headlabel = ""];
+roomcombinations_rooms           -> rooms                            [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_rooms_id:id", headlabel = ""];
+rooms                            -> room_types                       [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_room_type_id:id", headlabel = ""];
+rooms                            -> timetables                       [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_timetable_id:id", headlabel = ""];
+special_events                   -> timetables                       [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_timetable_id:id", headlabel = ""];
+timeslots                        -> timetables                       [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_timetable_id:id", headlabel = ""];
+timetables                       -> semester_types                   [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_semester_type_id:id", headlabel = ""];
+week_events_rooms                -> course_events                    [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "week_event_id:id", headlabel = ""];
+week_events_rooms                -> rooms                            [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "room_id:id", headlabel = ""];
+week_events_timeslots            -> course_events                    [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "week_event_id:id", headlabel = ""];
+week_events_timeslots            -> timeslots                        [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "timeslot_id:id", headlabel = ""];
+worktimes                        -> employees                        [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_employee_id:id", headlabel = ""];
+worktimes                        -> timeslots                        [color = "#595959", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "fk_timeslot_id:id", headlabel = ""];
+
+}
