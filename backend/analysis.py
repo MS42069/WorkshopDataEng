@@ -129,7 +129,7 @@ class DatabaseAnalyzer:
         data = self.fetch_data(query)
         return data
 
-    def analyze_employee_preferences(self): #TODO Aktuell 60000 Präferenzen pro Slot & keine um 8:00 -> SQL überarbeiten
+    def analyze_employee_preferences(self): #TODO DONE(? - siehe query_timeslot_contraints) Aktuell 60000 Präferenzen pro Slot & keine um 8:00 -> SQL überarbeiten
         """
         Analysiert die Präferenzen der Mitarbeiter für bestimmte Zeiten (z. B. 8:00 Uhr).
         """
@@ -141,7 +141,29 @@ class DatabaseAnalyzer:
         WHERE t.start_time = '08:00:00'
         GROUP BY c.weekday, t.start_time, t.end_time;
         """
-        return self.fetch_data(query)
+        # Mitarbeiterpräferenzen für 8:00 Uhr aus der employee_timeslot_constraints Tabelle
+        # Zählt an wie vielen Tagen ein Mitarbeiter nicht um 8:00 Uhr arbeiten möchte
+        query_timeslot_contraints = """
+        WITH counts AS (
+            SELECT 
+                employee_abbreviation,
+                COUNT(*) AS count
+            FROM employee_timeslot_constraints
+            WHERE start_time = '08:00:00'
+              AND constraint_value = 'NOT_WANTED'
+            GROUP BY employee_abbreviation
+        )
+        SELECT DISTINCT
+            c.employee_abbreviation,
+            LOWER(e.firstname)AS firstname,
+            LOWER(e.lastname) AS lastname,
+            c.count
+        FROM counts c
+        LEFT JOIN employees e
+        ON c.employee_abbreviation = e.abbreviation
+        ORDER BY c.count DESC;
+        """
+        return self.fetch_data(query_timeslot_contraints)
 
     def close_connection(self):
         """
@@ -195,9 +217,37 @@ class DataVisualizer:
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
         plt.show()
-    # TODO: Wie viele Dozenten mögen/mögen nicht um 8:00 aufstehen? -> Was soll das heißte/WIe sollen wir das beantworten?
+
+    def plot_employee_preferences2(self, data):
+        """
+       Visualisiert die Häufigkeit der NOT_WANTED-Präferenzen für Mitarbeiter um 08:00 Uhr.
+
+       :param data: Pandas DataFrame mit Spalten 'fullname' und 'count'.
+           """
+        # Visualisierung erstellen
+        plt.figure(figsize=(10, 6))
+        # neue Spalte mit dem vollen Namen des Mitarbeiters erstellen
+        data['fullname'] = data['firstname'] + ' ' + data['lastname']
+        plt.bar(data['fullname'], data['count'], color='steelblue')
+
+        # Diagramm beschriften
+        plt.title('Anzahl der Tage mit NOT-WANTED Präferenz um 08:00 Uhr', fontsize=14)
+        plt.xlabel('Mitarbeiter', fontsize=12)
+        plt.ylabel('Anzahl der Präferenzen', fontsize=12)
+        plt.xticks(rotation=45, fontsize=10)
+        plt.tight_layout()
+
+        # Diagramm anzeigen
+        plt.show()
+
+
+    # TODO DONE: Wie viele Dozenten mögen/mögen nicht um 8:00 aufstehen? -> Was soll das heißte/WIe sollen wir das beantworten?
+    # DONE: Anzahl der Tage an denen Dozenten nicht um 8:00 Uhr arbeiten möchten in der employee_timeslot_constraints Tabelle
     # TODO Clustering der Dozentenwünsche
     # TODO: Durchschnittlicher Dozentenwunsch (???)
+
+
+
 def main():
     # Verbindung zur Datenbank herstellen
     analyzer = DatabaseAnalyzer(dbname="postgres", user="postgres", password="password")
@@ -213,7 +263,8 @@ def main():
     print("Präferenzen der Mitarbeiter für 8:00 Uhr:")
     employee_preferences = analyzer.analyze_employee_preferences()
     print(employee_preferences)
-    visualizer.plot_employee_preferences(employee_preferences)
+    #visualizer.plot_employee_preferences(employee_preferences)
+    visualizer.plot_employee_preferences2(employee_preferences)
 
     # Verbindung schließen
     analyzer.close_connection()
