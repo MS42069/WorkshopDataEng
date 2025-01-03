@@ -1,0 +1,103 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.banner{
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(../img/homepage_background.jpg);
+    background-size: cover;
+    background-position: center;
+}
+.navbar{
+    width: 85%;
+    margin: auto;
+    padding: 2.1875rem 0; /* 35px in rem umgerechnet */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo{
+    width: 7.5rem;
+    cursor: pointer;
+}
+
+.navbar ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 0 1.25rem;
+    position: relative;
+}
+
+.navbar ul li a{
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.navbar ul li::after {
+    content: '';
+    height: 0.1875rem; /* 3px in rem umgerechnet (3px ÷ 16px = 0.1875rem) */
+    width: 0; /* Unverändert */
+    background: #002196;
+    position: absolute;
+    left: 0;
+    bottom: -0.625rem; /* -10px in rem umgerechnet (-10px ÷ 16px = -0.625rem) */
+    transition: 0.5s; /* Unverändert */
+}
+
+.navbar ul li:hover::after{
+    width: 100%;
+}
+
+.content{
+    width: 100%;
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #fff;
+}
+
+.content h1{
+    font-size: 4.375rem; /* 70px in rem umgerechnet (70px ÷ 16px = 4.375rem) */
+    margin-top: 5rem; /* 80px in rem umgerechnet (80px ÷ 16px = 5rem) */
+}
+
+.content p{
+    margin: 1.25rem auto; /* 20px in rem umgerechnet (20px ÷ 16px = 1.25rem) */
+    font-weight: 100; /* Unverändert */
+    font-size: 1.5625rem; /* 25px in rem umgerechnet (25px ÷ 16px = 1.5625rem) */
+}
+
+button{
+    width: 12.5rem; /* 200px in rem umgerechnet (200px ÷ 16px = 12.5rem) */
+    padding: 0.9375rem 0; /* 15px in rem umgerechnet (15px ÷ 16px = 0.9375rem) */
+    text-align: center;
+    margin: 1.25rem 0.625rem; /* 20px und 10px in rem umgerechnet (20px ÷ 16px = 1.25rem, 10px ÷ 16px = 0.625rem) */
+    border-radius: 1.5625rem; /* 25px in rem umgerechnet (25px ÷ 16px = 1.5625rem) */
+    font-weight: bold;
+    border: 0.125rem solid #002196; /* 2px in rem umgerechnet (2px ÷ 16px = 0.125rem) */
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+span{
+    background: #002196;
+    height: 100%;
+    width: 0;
+    border-radius: 1.5625rem; /* 25px in rem umgerechnet (25px ÷ 16px = 1.5625rem) */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: 0.5s;
+}
+
+button:hover span{
+    width: 100%;
+}
