@@ -5,21 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analysen</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.querySelector(".sidebar");
-            const content = document.querySelector(".content");
-
-            // Überprüfen, ob die Sidebar geöffnet ist
-            if (sidebar.classList.contains("open")) {
-                sidebar.classList.remove("open");
-                content.style.marginLeft = "0"; // Zurücksetzen des Inhaltsbereichs
-            } else {
-                sidebar.classList.add("open");
-                content.style.marginLeft = "250px"; // Platz schaffen für die Sidebar
-            }
-        }
-    </script>
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}" defer></script>
 </head>
 <body>
 <header class="banner">
