@@ -14,8 +14,8 @@ version: '0.7'
 services:
   flask-app:
     build:
-      context: ../backend
-      dockerfile: Dockerfile
+      context: ${APP_FOLDER} #TODO: Pfad im .env file setzen
+      dockerfile: ${APP_FOLDER}/docker/Dockerfile
     environment:
       - DB_HOST=dev-stundenplan-postgres
       - DB_PORT=5432
