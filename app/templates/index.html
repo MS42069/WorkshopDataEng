@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask App</title>
+    <title><Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -12,7 +12,7 @@
             <img src="{{ url_for('static', filename='img/logo_ohne_hintergrund.png') }}" class="logo">
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">Analysen</a></li>
+                <li><a href="{{ url_for('analysen.home') }}">Analysen</a></li>
                 <li><a href="#services">Punkt 3</a></li>
                 <li><a href="#contact">Punkt 4</a></li>
             </ul>
@@ -23,7 +23,9 @@
         <h1>DATA ENGINEERING PROJEKT</h1>
         <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod </p>
         <div>
-            <button type="button"><span></span>ANALYSEN</button>
+            <button type="button" onclick="window.location.href='{{ url_for('analysen.home') }}'">
+                <span></span>ANALYSEN
+            </button>
             <button type="button"><span></span>ANALYSEN</button>
         </div>
     </div>
