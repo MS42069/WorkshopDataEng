@@ -4,8 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analysen</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector(".sidebar");
+            const content = document.querySelector(".content");
+
+            // Überprüfen, ob die Sidebar geöffnet ist
+            if (sidebar.classList.contains("open")) {
+                sidebar.classList.remove("open");
+                content.style.marginLeft = "0"; // Zurücksetzen des Inhaltsbereichs
+            } else {
+                sidebar.classList.add("open");
+                content.style.marginLeft = "250px"; // Platz schaffen für die Sidebar
+            }
+        }
+    </script>
 </head>
 <body>
-<h1>ANALYSEN</h1>
+<header class="banner">
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    <img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo">
+</header>
+
+<aside class="sidebar">
+    <ul>
+        <li><a href="{{ url_for('home.home') }}" class="home-link">Startseite</a></li>
+        <li>
+            <a href="#">Analysen</a>
+            <ul>
+                <li><a href="#">Unbeliebte Zeitslots</a></li>
+                <li><a href="#">8 Uhr Präferenzen</a></li>
+                <li><a href="#">Dozenten Clustering</a></li>
+                <li><a href="#">Durchschnittlicher Dozent</a></li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+
+<main class="content">
+    <h1 class="title">Analysen</h1>
+    <section class="graphics-area">
+        <p>Hier können deine Grafiken angezeigt werden.</p>
+        <!-- Hier Grafiken oder Diagramme einfügen -->
+    </section>
+</main>
 </body>
+</html>
