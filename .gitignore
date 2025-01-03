@@ -10,8 +10,11 @@
 .idea/
 
 # Data Eng Ordner soll komplett ignoriert werden
-Data Eng/
-
+DataEng/
+stundenplan-backend-main/
+stundenplan-frontend-main/
+stundenplan-dozent-main/
+tutorial.mp4
 # Node modules
 node_modules/
 
@@ -49,4 +52,3 @@ target/
 
 # macOS specific
 *.DS_Store
-
