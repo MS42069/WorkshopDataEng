@@ -1,5 +1,7 @@
 import psycopg2
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 class DatabaseAnalyzer:
@@ -183,6 +185,7 @@ class DataVisualizer:
         """
         Erstellt ein Balkendiagramm der unbeliebtesten Zeitslots.
         """
+        print("Erstelle die Grafik")
         labels = [f"{row['start_time']} - {row['end_time']}" for _, row in data.iterrows()]
         plt.bar(labels, data['belegung'])
         plt.xlabel('Zeitslot')
@@ -190,7 +193,11 @@ class DataVisualizer:
         plt.title('Unbeliebteste Zeitslots')
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
-        plt.show()
+        #plt.show()
+
+        # Diagramm in Datei speichern
+        plt.savefig("./static/img/graphs/unpopular_timeslots.png", format="png")
+        plt.close()
 
     def plot_unpopular_timeslots_wd_ts(self, data): # Not used yet
         """
@@ -203,7 +210,7 @@ class DataVisualizer:
         plt.title('Unbeliebteste Zeitslots')
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
-        plt.show()
+        #plt.show()
 
     def plot_employee_preferences(self, data):
         """
@@ -216,7 +223,7 @@ class DataVisualizer:
         plt.title('Präferenzen für 8:00 Uhr nach Wochentag')
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
-        plt.show()
+        #plt.show()
 
     def plot_employee_preferences2(self, data):
         """
@@ -238,7 +245,7 @@ class DataVisualizer:
         plt.tight_layout()
 
         # Diagramm anzeigen
-        plt.show()
+        #plt.show()
 
 
     # TODO DONE: Wie viele Dozenten mögen/mögen nicht um 8:00 aufstehen? -> Was soll das heißte/WIe sollen wir das beantworten?
@@ -248,29 +255,29 @@ class DataVisualizer:
 
 
 
-def main():
+#def main():
     # Verbindung zur Datenbank herstellen
-    analyzer = DatabaseAnalyzer(dbname="postgres", user="postgres", password="password")
-    visualizer = DataVisualizer()
+    #analyzer = DatabaseAnalyzer(dbname="postgres", user="postgres", password="password")
+    #visualizer = DataVisualizer()
 
     # Analyse der unbeliebtesten Zeitslots
-    print("Unbeliebteste Zeitslots:")
-    unpopular_timeslots = analyzer.analyze_unpopular_timeslots()
-    print(unpopular_timeslots)
-    visualizer.plot_unpopular_timeslots(unpopular_timeslots)
+    #print("Unbeliebteste Zeitslots:")
+    #unpopular_timeslots = analyzer.analyze_unpopular_timeslots()
+    #print(unpopular_timeslots)
+    #visualizer.plot_unpopular_timeslots(unpopular_timeslots)
 
     # Analyse der Mitarbeiterpräferenzen
-    print("Präferenzen der Mitarbeiter für 8:00 Uhr:")
-    employee_preferences = analyzer.analyze_employee_preferences()
-    print(employee_preferences)
+    #print("Präferenzen der Mitarbeiter für 8:00 Uhr:")
+    #employee_preferences = analyzer.analyze_employee_preferences()
+    #print(employee_preferences)
     #visualizer.plot_employee_preferences(employee_preferences)
-    visualizer.plot_employee_preferences2(employee_preferences)
+    #visualizer.plot_employee_preferences2(employee_preferences)
 
     # Verbindung schließen
-    analyzer.close_connection()
+    #analyzer.close_connection()
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+    #main()
 
 #%%
 

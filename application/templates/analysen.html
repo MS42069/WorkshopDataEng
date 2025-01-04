@@ -19,7 +19,7 @@
         <li>
             <a href="#">Analysen</a>
             <ul>
-                <li><a href="#">Unbeliebte Zeitslots</a></li>
+                <li><a href="{{ url_for('analysen.unpopular_timeslots') }}">Unbeliebte Zeitslots</a></li>
                 <li><a href="#">8 Uhr Präferenzen</a></li>
                 <li><a href="#">Dozenten Clustering</a></li>
                 <li><a href="#">Durchschnittlicher Dozent</a></li>
@@ -31,8 +31,10 @@
 <main class="content">
     <h1 class="title">Analysen</h1>
     <section class="graphics-area">
-        <p>Hier können deine Grafiken angezeigt werden.</p>
         <!-- Hier Grafiken oder Diagramme einfügen -->
+        {% if image_url %}
+        <img src="{{ image_url }}" alt="Visualisierung der unbeliebten Zeitslots">
+        {% endif %}
     </section>
 </main>
 </body>

@@ -6,7 +6,7 @@ db_bp = Blueprint("db", __name__)
 @db_bp.route('/test-db', methods=['GET'])
 def test_db_connection():
     # Importiere DATABASE lokal innerhalb der Funktion
-    from app.config import DATABASE
+    from application.config import DATABASE
 
     try:
         conn = psycopg2.connect(

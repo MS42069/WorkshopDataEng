@@ -122,6 +122,16 @@ ul {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     min-height: 400px; /* Mindesthöhe für den Grafikbereich */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.graphics-area img {
+    max-width: 80%;          /* Verhindert, dass das Bild zu groß wird */
+    height: auto;            /* Behält das Seitenverhältnis bei */
+    margin: 20px 0;          /* Fügt Abstand oben und unten hinzu */
 }
 
 /* Responsive Design */
