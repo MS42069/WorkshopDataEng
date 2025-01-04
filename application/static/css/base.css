@@ -50,7 +50,8 @@ ul {
 .sidebar {
     position: fixed;
     top: 0;
-    left: -250px; /* Standard: versteckt */
+    /*left: -250px; /* Standard: versteckt */
+    left: 0; /* Standard: sichtbar */
     width: 250px;
     height: 100vh;
     background-color: #fff;
@@ -101,9 +102,19 @@ ul {
 }
 /* Hauptinhalt */
 .content {
-    margin-left: 0;
+    margin-left: 250px; /* Platz für die Sidebar lassen */
     transition: margin-left 0.3s ease;
     padding: 20px;
+}
+
+/* Sidebar eingeklappt */
+.sidebar.closed {
+    left: -250px; /* Sidebar versteckt */
+}
+
+/* Hauptinhalt, wenn Sidebar eingeklappt ist */
+.sidebar.closed ~ .content {
+    margin-left: 0; /* Kein Platz für die Sidebar */
 }
 
 .sidebar.open ~ .content {

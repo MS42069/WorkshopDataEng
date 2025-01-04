@@ -16,12 +16,11 @@ def home():
 @analysen_bp.route('/analysen/unbeliebte-zeitslots')
 def unpopular_timeslots():
     # Datenbankabfrage
-    print("Datenbankabfrage")
     data = analyzer.analyze_unpopular_timeslots()
-    print(data)
     # Plot erstellen und speichern
     visualizer.plot_unpopular_timeslots(data)
-    print("url für Bild rendern")
     # Analysen-Seite mit eingebettetem Bild rendern
     image_url = url_for('static', filename='img/graphs/unpopular_timeslots.png')
-    return render_template('analysen.html', image_url=image_url)
+    # Titel festlegen
+    page_titel = "Ergebnisse: Unbeliebte Zeitslots"
+    return render_template('analysen.html', image_url=image_url, page_title=page_titel)
