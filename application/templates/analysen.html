@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analysen</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <script src="{{ url_for('static', filename='js/sidebar.js') }}" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/analysen.js') }}" defer></script>
 </head>
 <body>
 <header class="banner">
@@ -19,10 +21,9 @@
         <li>
             <a href="#">Analysen</a>
             <ul>
-                <li><a href="{{ url_for('analysen.unpopular_timeslots') }}">Unbeliebte Zeitslots</a></li>
-                <li><a href="#">8 Uhr Präferenzen</a></li>
-                <li><a href="#">Dozenten Clustering</a></li>
-                <li><a href="#">Durchschnittlicher Dozent</a></li>
+               <!-- <li><a href="#" onclick="loadContentForBothAreas('{{ url_for('analysen.timeslots_1') }}', '{{ url_for('analysen.timeslots_2') }}')">Zeitslots</a></li>-->
+                <li><a href="#" onclick="loadContentForArea('{{ url_for('analysen.timeslots_1') }}', 'graphics-area')">Zeitslots</a></li>
+                <li><a href="#">Dozenten</a></li>
             </ul>
         </li>
     </ul>
@@ -30,12 +31,27 @@
 
 <main class="content">
     <h1 class="title">{{ page_title }}</h1>
-    <section class="graphics-area">
-        <!-- Hier Grafiken oder Diagramme einfügen -->
-        {% if image_url %}
-        <img src="{{ image_url }}" alt="Visualisierung der unbeliebten Zeitslots">
-        {% endif %}
+    <section id="graphics-area" class="graphics-area" style="display: none;">
+        <!-- Ranking der Top 3 Zeitslots -->
+        <div class="ranking-area">
+            <h2><i class="fas fa-trophy" style="color: gold; margin-right: 10px;"></i>Top 3 Zeitslots</h2>
+            <ol>
+                {% for slot in top_3_list %}
+                <li>
+                    {{ slot }}
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <!-- Bildbereich -->
+        <div class="image-area">
+            {% if image_url %}
+            <img src="{{ image_url }}" alt="Visualisierung der unbeliebten Zeitslots">
+            {% endif %}
+        </div>
     </section>
+
 </main>
 </body>
 </html>

@@ -1,7 +1,8 @@
 /* Allgemeine Stile */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
     background-color: #f9f9f9;
 }
 
@@ -129,14 +130,19 @@ ul {
 
 .graphics-area {
     background-color: white;
-    padding: 20px;
+    padding: 50px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     min-height: 400px; /* Mindesthöhe für den Grafikbereich */
-    display: flex;
-    justify-content: center;
+    display: none; /* Standardmäßig unsichtbar */
+    justify-content: space-between;
     align-items: center;
     height: 100%;
+    margin-bottom: 20px;
+}
+
+.graphics-area.active {
+    display: flex; /* Nur aktiv anzeigen */
 }
 
 .graphics-area img {
@@ -144,7 +150,40 @@ ul {
     height: auto;            /* Behält das Seitenverhältnis bei */
     margin: 20px 0;          /* Fügt Abstand oben und unten hinzu */
 }
+.ranking-area {
+    flex: 1;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
 
+.ranking-area ol {
+    padding-left: 20px; /* Abstand zum linken Rand */
+    font-size: 16px;    /* Schriftgröße */
+    line-height: 2;     /* Abstand zwischen den Zeilen */
+    margin: 0;
+}
+
+.ranking-area ol li {
+    margin-bottom: 10px; /* Abstand zwischen den Listenelementen */
+}
+.image-area {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Styling des Bildes */
+.image-area img {
+    max-width: 100%; /* Verhindert, dass das Bild größer als der Container wird */
+    height: auto; /* Erhält das Seitenverhältnis */
+    width: 80%; /* Bildgröße auf 80% des umgebenden Containers skalieren */
+    border: 2px solid #001145; /* Optional: Rahmenfarbe passend zu deinem Design */
+    border-radius: 10px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Schatteneffekt für ein modernes Design */
+}
 /* Responsive Design */
 @media (max-width: 768px) {
     .sidebar {
@@ -161,5 +200,9 @@ ul {
 
     .logo {
         height: 30px;
+    }
+
+    .graphics-area{
+        padding: 10px;
     }
 }

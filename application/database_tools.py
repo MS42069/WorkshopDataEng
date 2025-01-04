@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 class DatabaseAnalyzer:
     def __init__(self, dbname, user, password, host="localhost", port=5432):
@@ -185,17 +186,29 @@ class DataVisualizer:
         """
         Erstellt ein Balkendiagramm der unbeliebtesten Zeitslots.
         """
-        print("Erstelle die Grafik")
-        labels = [f"{row['start_time']} - {row['end_time']}" for _, row in data.iterrows()]
-        plt.bar(labels, data['belegung'])
-        plt.xlabel('Zeitslot')
-        plt.ylabel('Belegungen')
-        plt.title('Unbeliebteste Zeitslots')
-        plt.xticks(rotation=45, ha='right')
-        plt.tight_layout()
-        #plt.show()
+        # Seaborn-Stil aktivieren (optional für ein modernes Design)
+        sns.set_theme(style="whitegrid")
 
-        # Diagramm in Datei speichern
+        # Daten vorbereiten
+        labels = [f"{row['start_time']} - {row['end_time']}" for _, row in data.iterrows()]
+        belegung = data['belegung']
+
+        # Balkendiagramm erstellen
+        plt.figure(figsize=(10, 6))  # Diagrammgröße
+        plt.bar(labels, belegung, color="#001145")  # Balkenfarbe auf #001145 setzen
+
+        # Achsentitel und Diagrammtitel
+        plt.xlabel('Zeitslot', fontsize=12, labelpad=10)
+        plt.ylabel('Anzahl Belegungen', fontsize=12, labelpad=10)
+
+        # Achsenticks optimieren
+        plt.xticks(rotation=45, ha='right', fontsize=10)
+        plt.yticks(fontsize=10)
+
+        # Layout anpassen
+        plt.tight_layout()
+
+    # Diagramm in Datei speichern
         plt.savefig("./static/img/graphs/unpopular_timeslots.png", format="png")
         plt.close()
 
