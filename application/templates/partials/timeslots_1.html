@@ -1,0 +1,22 @@
+<div class="title">
+    <h1>{{ page_title }}</h1>
+</div>
+<section class="ranking-area">
+    <h2>Top 3 beliebtesten Zeitslots</h2>
+    <ol id="ranking-list">
+        <!-- Dynamisch geladene Liste -->
+        {% for slot in top_3_list %}
+        <li>{{ slot }}</li>
+        {% endfor %}
+    </ol>
+</section>
+<section class="graphics-area">
+    <div class="image-area">
+        <h2>Anzahl tatsächlicher Kurse pro Zeitslot</h2>
+        <img src="{{ image_url_courses }}" alt="Zeitslots Visualisierung">
+        <h2>Anzahl verfügbarer Kurse pro Zeitslot</h2>
+        <img src="{{ image_url_events }}" alt="Zeitslots Visualisierung">
+        <h2>Anzahl tatsächlicher und verfügbarer Kurse pro Zeitslot</h2>
+        <img src="{{ image_url_combined }}" alt="Zeitslots Visualisierung">
+    </div>
+</section>
