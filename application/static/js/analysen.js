@@ -11,7 +11,7 @@ function toggleSidebar() {
 }
 
 function loadContentForArea(url, areaId) {
-    const graphicsArea = document.getElementById(areaId);
+    const content = document.getElementById(areaId);
 
     fetch(url)
         .then(response => {
@@ -22,12 +22,12 @@ function loadContentForArea(url, areaId) {
         })
         .then(data => {
             // Inhalte in den Bereich einfügen
-            graphicsArea.innerHTML = data;
+            content.innerHTML = data;
 
             // Flexbox-Stile anwenden
-            graphicsArea.style.display = "flex";
-            graphicsArea.style.justifyContent = "space-between";
-            graphicsArea.style.alignItems = "center";
+            content.style.display = "flex";
+            content.style.justifyContent = "center";
+            content.style.alignItems = "center";
         })
         .catch(error => {
             console.error("Fehler:", error);

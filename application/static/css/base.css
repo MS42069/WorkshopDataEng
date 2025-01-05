@@ -21,7 +21,7 @@ ul {
 .banner {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Verteilt Inhalte zwischen links (Hamburger-Menü) und rechts (Logo) */
+    justify-content: space-between; /* Verteilt Inhalte */
     background-color: #fff;
     padding: 10px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -34,37 +34,30 @@ ul {
     border: none;
     color: #011560;
     cursor: pointer;
-    z-index: 1000; /* Sicherstellen, dass es immer sichtbar bleibt */
+    z-index: 1000;
 }
 
-/* Logo */
 .logo {
-    margin-left: auto; /* Schiebt das Logo ganz nach rechts */
+    margin-left: auto;
     height: 40px;
 }
 
 .banner .menu-toggle + .logo {
-    margin-left: 50px; /* Abstand zwischen Button und Logo */
+    margin-left: 50px;
 }
 
 /* Sidebar-Stile */
 .sidebar {
     position: fixed;
     top: 0;
-    /*left: -250px; /* Standard: versteckt */
-    left: 0; /* Standard: sichtbar */
+    left: 0;
     width: 250px;
     height: 100vh;
     background-color: #fff;
-    color: white;
     transition: left 0.3s ease;
     padding-top: 60px; /* Platz für das Banner */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 999; /* Unterhalb des Menu-Toggles */
-}
-
-.sidebar.open {
-    left: 0;
+    z-index: 999;
 }
 
 .sidebar ul {
@@ -75,7 +68,6 @@ ul {
     margin-bottom: 15px;
 }
 
-/* Standard-Link-Stile */
 .sidebar a {
     color: #001145;
     font-weight: bold;
@@ -89,33 +81,24 @@ ul {
     background-color: rgba(0, 33, 150, 0.3);
 }
 
-/* Startseite spezifisch (nur das erste <li> der Hauptliste) */
-.sidebar > ul > li:first-child a {
-    background-color: #001145; /* Blauer Hintergrund */
-    color: white; /* Weiße Schrift */
-    font-weight: bold;
-    border-radius: 5px;
-}
-
-/* Hover-Stil für Startseite */
-.sidebar > ul > li:first-child a:hover {
-    background-color: #000a33; /* Dunkleres Blau beim Hover */
-}
 /* Hauptinhalt */
 .content {
-    margin-left: 250px; /* Platz für die Sidebar lassen */
-    transition: margin-left 0.3s ease;
+    margin-left: 250px; /* Platz für die Sidebar */
     padding: 20px;
+    display: flex;
+    flex-direction: column; /* Inhalte untereinander anordnen */
+    align-items: center;
+    gap: 20px; /* Abstand zwischen Elementen */
+    min-height: 100vh; /* Deckt die gesamte Bildschirmhöhe ab */
 }
 
 /* Sidebar eingeklappt */
 .sidebar.closed {
-    left: -250px; /* Sidebar versteckt */
+    left: -250px;
 }
 
-/* Hauptinhalt, wenn Sidebar eingeklappt ist */
 .sidebar.closed ~ .content {
-    margin-left: 0; /* Kein Platz für die Sidebar */
+    margin-left: 0;
 }
 
 .sidebar.open ~ .content {
@@ -123,75 +106,87 @@ ul {
 }
 
 .title {
-    margin: 20px 0;
-    color: #333;
-    font-size: 24px;
+    width: 100%; /* Dehnt sich auf die gesamte Breite aus */
+    text-align: center;
+}
+.title h1{
+    margin: 10px 0 10px 0; /* Weniger Abstand nach oben und unten */
+    color: #333; /* Beibehaltung der aktuellen Farbe */
+    font-size: 24px; /* Schriftgröße */
+    text-align: left; /* Links ausgerichtet */
+    font-weight: bold; /* Fett für den Titel */
 }
 
 .graphics-area {
     background-color: white;
-    padding: 50px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    min-height: 400px; /* Mindesthöhe für den Grafikbereich */
-    display: none; /* Standardmäßig unsichtbar */
-    justify-content: space-between;
+    display: flex;
+    flex-direction: column; /* Inhalte untereinander anordnen */
     align-items: center;
-    height: 100%;
-    margin-bottom: 20px;
-}
-
-.graphics-area.active {
-    display: flex; /* Nur aktiv anzeigen */
+    justify-content: center;
+    gap: 20px;
+    width: 100%; /* Dehnt sich auf die gesamte Breite aus */
+    max-width: 1200px; /* Begrenzung der maximalen Breite */
+    margin: 20px auto; /* Zentriert den Bereich horizontal */
 }
 
 .graphics-area img {
-    max-width: 80%;          /* Verhindert, dass das Bild zu groß wird */
-    height: auto;            /* Behält das Seitenverhältnis bei */
-    margin: 20px 0;          /* Fügt Abstand oben und unten hinzu */
+    max-width: 80%; /* Bilder passen sich an die Containerbreite an */
+    height: auto; /* Beibehaltung des Seitenverhältnisses */
+    border: 2px solid #001145; /* Optional: Rahmenfarbe */
+    border-radius: 10px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Schatteneffekt */
 }
+
+.image-area {
+    display: flex;
+    flex-wrap: wrap; /* Bilder umbrechen, wenn sie nicht nebeneinander passen */
+    justify-content: center; /* Zentriert die Bilder horizontal */
+    gap: 20px; /* Abstand zwischen den Bildern */
+    width: 100%; /* Passt sich an die Breite des Containers an */
+}
+
 .ranking-area {
-    flex: 1;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Inhalte untereinander anordnen */
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%; /* Dehnt sich auf die gesamte Breite aus */
+    max-width: 1200px; /* Begrenzung der maximalen Breite */
+    margin: 20px auto; /* Zentriert den Bereich horizontal */
 }
 
 .ranking-area ol {
-    padding-left: 20px; /* Abstand zum linken Rand */
-    font-size: 16px;    /* Schriftgröße */
-    line-height: 2;     /* Abstand zwischen den Zeilen */
-    margin: 0;
+    list-style: decimal inside; /* Zahlen innerhalb der Liste */
+    padding: 0; /* Entfernt zusätzliche Innenabstände */
+    margin: 0; /* Entfernt Außenabstände */
+    font-size: 18px; /* Größere Schrift für bessere Lesbarkeit */
+    line-height: 2; /* Mehr Abstand zwischen den Zeilen */
+    color: #333; /* Farbe der Schrift */
+    font-weight: bold; /* Fett für die Liste */
+    text-align: left; /* Optional: Linksbündig für bessere Struktur */
 }
 
 .ranking-area ol li {
-    margin-bottom: 10px; /* Abstand zwischen den Listenelementen */
-}
-.image-area {
-    flex: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    margin-bottom: 15px; /* Abstand zwischen den Listenelementen */
+    background-color: #f8f9fa; /* Optional: Heller Hintergrund für jedes Listenelement */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 10px; /* Abstand innerhalb jedes Listenelements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Schatten für visuelle Trennung */
 }
 
-/* Styling des Bildes */
-.image-area img {
-    max-width: 100%; /* Verhindert, dass das Bild größer als der Container wird */
-    height: auto; /* Erhält das Seitenverhältnis */
-    width: 80%; /* Bildgröße auf 80% des umgebenden Containers skalieren */
-    border: 2px solid #001145; /* Optional: Rahmenfarbe passend zu deinem Design */
-    border-radius: 10px; /* Abgerundete Ecken */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Schatteneffekt für ein modernes Design */
-}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .sidebar {
         width: 200px;
-    }
-
-    .sidebar.open {
-        left: 0;
     }
 
     .sidebar.open ~ .content {
@@ -202,7 +197,12 @@ ul {
         height: 30px;
     }
 
-    .graphics-area{
+    .graphics-area {
         padding: 10px;
+        max-width: 90%; /* Breite an kleinere Geräte anpassen */
+    }
+
+    .image-area img {
+        max-width: 100%; /* Bilder passen sich an den kleineren Bildschirm an */
     }
 }

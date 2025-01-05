@@ -21,34 +21,28 @@
         <li>
             <a href="#">Analysen</a>
             <ul>
-               <!-- <li><a href="#" onclick="loadContentForBothAreas('{{ url_for('analysen.timeslots_1') }}', '{{ url_for('analysen.timeslots_2') }}')">Zeitslots</a></li>-->
-                <li><a href="#" onclick="loadContentForArea('{{ url_for('analysen.timeslots_1') }}', 'graphics-area')">Zeitslots</a></li>
+                <li><a href="#" onclick="loadContentForArea('{{ url_for('analysen.analyse_timeslots') }}', 'content-area')">Zeitslots</a></li>
+
                 <li><a href="#">Dozenten</a></li>
             </ul>
         </li>
     </ul>
 </aside>
 
-<main class="content">
+<main id="content-area" class="content">
     <h1 class="title">{{ page_title }}</h1>
-    <section id="graphics-area" class="graphics-area" style="display: none;">
-        <!-- Ranking der Top 3 Zeitslots -->
-        <div class="ranking-area">
-            <h2><i class="fas fa-trophy" style="color: gold; margin-right: 10px;"></i>Top 3 Zeitslots</h2>
-            <ol>
-                {% for slot in top_3_list %}
-                <li>
-                    {{ slot }}
-                </li>
-                {% endfor %}
-            </ol>
-        </div>
+    <!-- Ranking Area -->
+    <section class="ranking-area" style="display: none;">
+        <h2>Top 3 Zeitslots</h2>
+        <ol id="ranking-list">
+            <!-- Dynamisch geladene Liste -->
+        </ol>
+    </section>
+
+    <section class="graphics-area" style="display: none;">
 
         <!-- Bildbereich -->
         <div class="image-area">
-            {% if image_url %}
-            <img src="{{ image_url }}" alt="Visualisierung der unbeliebten Zeitslots">
-            {% endif %}
         </div>
     </section>
 
