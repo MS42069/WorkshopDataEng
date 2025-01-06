@@ -354,6 +354,112 @@ class DatabaseAnalyzer:
         """
         return self.fetch_data(query)
 
+    def collect_all_employee_preferences(self):
+        """"
+        Erstellt eine Tabelle mit allen Präferenzen der Mitarbeiter. Jeder Mitarbeiter hat eine Zeile mit allen Präferenzen
+        und eine Zeile pro Wochentag und Timeslot
+        """
+
+        query = """
+            SELECT 
+                e.abbreviation,
+                e.firstname,
+                e.lastname,
+                lbc.constraint_value AS lunch_break,
+                fdc.constraint_value AS free_day,
+                bbc.constraint_value AS breaks_between,
+                cdc.constraint_value AS course_distribution,
+                stc.constraint_value AS subsequent_timeslots,
+                stc.timeslot_amount,
+                -- Montag: Timeslots 0 bis 6
+                MAX(CASE WHEN etc.weekday = 'MONDAY' AND etc.timeslot_index = 0 THEN etc.constraint_value END) AS monday_slot_0,
+                MAX(CASE WHEN etc.weekday = 'MONDAY' AND etc.timeslot_index = 1 THEN etc.constraint_value END) AS monday_slot_1,
+                MAX(CASE WHEN etc.weekday = 'MONDAY' AND etc.timeslot_index = 2 THEN etc.constraint_value END) AS monday_slot_2,
+                MAX(CASE WHEN etc.weekday = 'MONDAY' AND etc.timeslot_index = 3 THEN etc.constraint_value END) AS monday_slot_3,
+                MAX(CASE WHEN etc.weekday = 'MONDAY' AND etc.timeslot_index = 4 THEN etc.constraint_value END) AS monday_slot_4,
+                MAX(CASE WHEN etc.weekday = 'MONDAY' AND etc.timeslot_index = 5 THEN etc.constraint_value END) AS monday_slot_5,
+                MAX(CASE WHEN etc.weekday = 'MONDAY' AND etc.timeslot_index = 6 THEN etc.constraint_value END) AS monday_slot_6,
+                -- Dienstag: Timeslots 0 bis 6
+                MAX(CASE WHEN etc.weekday = 'TUESDAY' AND etc.timeslot_index = 0 THEN etc.constraint_value END) AS tuesday_slot_0,
+                MAX(CASE WHEN etc.weekday = 'TUESDAY' AND etc.timeslot_index = 1 THEN etc.constraint_value END) AS tuesday_slot_1,
+                MAX(CASE WHEN etc.weekday = 'TUESDAY' AND etc.timeslot_index = 2 THEN etc.constraint_value END) AS tuesday_slot_2,
+                MAX(CASE WHEN etc.weekday = 'TUESDAY' AND etc.timeslot_index = 3 THEN etc.constraint_value END) AS tuesday_slot_3,
+                MAX(CASE WHEN etc.weekday = 'TUESDAY' AND etc.timeslot_index = 4 THEN etc.constraint_value END) AS tuesday_slot_4,
+                MAX(CASE WHEN etc.weekday = 'TUESDAY' AND etc.timeslot_index = 5 THEN etc.constraint_value END) AS tuesday_slot_5,
+                MAX(CASE WHEN etc.weekday = 'TUESDAY' AND etc.timeslot_index = 6 THEN etc.constraint_value END) AS tuesday_slot_6,
+                -- Mittwoch: Timeslots 0 bis 6
+                MAX(CASE WHEN etc.weekday = 'WEDNESDAY' AND etc.timeslot_index = 0 THEN etc.constraint_value END) AS wednesday_slot_0,
+                MAX(CASE WHEN etc.weekday = 'WEDNESDAY' AND etc.timeslot_index = 1 THEN etc.constraint_value END) AS wednesday_slot_1,
+                MAX(CASE WHEN etc.weekday = 'WEDNESDAY' AND etc.timeslot_index = 2 THEN etc.constraint_value END) AS wednesday_slot_2,
+                MAX(CASE WHEN etc.weekday = 'WEDNESDAY' AND etc.timeslot_index = 3 THEN etc.constraint_value END) AS wednesday_slot_3,
+                MAX(CASE WHEN etc.weekday = 'WEDNESDAY' AND etc.timeslot_index = 4 THEN etc.constraint_value END) AS wednesday_slot_4,
+                MAX(CASE WHEN etc.weekday = 'WEDNESDAY' AND etc.timeslot_index = 5 THEN etc.constraint_value END) AS wednesday_slot_5,
+                MAX(CASE WHEN etc.weekday = 'WEDNESDAY' AND etc.timeslot_index = 6 THEN etc.constraint_value END) AS wednesday_slot_6,
+                -- Donnerstag: Timeslots 0 bis 6
+                MAX(CASE WHEN etc.weekday = 'THURSDAY' AND etc.timeslot_index = 0 THEN etc.constraint_value END) AS thursday_slot_0,
+                MAX(CASE WHEN etc.weekday = 'THURSDAY' AND etc.timeslot_index = 1 THEN etc.constraint_value END) AS thursday_slot_1,
+                MAX(CASE WHEN etc.weekday = 'THURSDAY' AND etc.timeslot_index = 2 THEN etc.constraint_value END) AS thursday_slot_2,
+                MAX(CASE WHEN etc.weekday = 'THURSDAY' AND etc.timeslot_index = 3 THEN etc.constraint_value END) AS thursday_slot_3,
+                MAX(CASE WHEN etc.weekday = 'THURSDAY' AND etc.timeslot_index = 4 THEN etc.constraint_value END) AS thursday_slot_4,
+                MAX(CASE WHEN etc.weekday = 'THURSDAY' AND etc.timeslot_index = 5 THEN etc.constraint_value END) AS thursday_slot_5,
+                MAX(CASE WHEN etc.weekday = 'THURSDAY' AND etc.timeslot_index = 6 THEN etc.constraint_value END) AS thursday_slot_6,
+                -- Freitag: Timeslots 0 bis 6
+                MAX(CASE WHEN etc.weekday = 'FRIDAY' AND etc.timeslot_index = 0 THEN etc.constraint_value END) AS friday_slot_0,
+                MAX(CASE WHEN etc.weekday = 'FRIDAY' AND etc.timeslot_index = 1 THEN etc.constraint_value END) AS friday_slot_1,
+                MAX(CASE WHEN etc.weekday = 'FRIDAY' AND etc.timeslot_index = 2 THEN etc.constraint_value END) AS friday_slot_2,
+                MAX(CASE WHEN etc.weekday = 'FRIDAY' AND etc.timeslot_index = 3 THEN etc.constraint_value END) AS friday_slot_3,
+                MAX(CASE WHEN etc.weekday = 'FRIDAY' AND etc.timeslot_index = 4 THEN etc.constraint_value END) AS friday_slot_4,
+                MAX(CASE WHEN etc.weekday = 'FRIDAY' AND etc.timeslot_index = 5 THEN etc.constraint_value END) AS friday_slot_5,
+                MAX(CASE WHEN etc.weekday = 'FRIDAY' AND etc.timeslot_index = 6 THEN etc.constraint_value END) AS friday_slot_6
+            FROM employees e
+            LEFT JOIN lunch_break_constraints lbc
+                ON e.abbreviation = lbc.employee_abbreviation
+            LEFT JOIN free_day_constraints fdc
+                ON e.abbreviation = fdc.employee_abbreviation
+            LEFT JOIN breaks_between_constraints bbc
+                ON e.abbreviation = bbc.employee_abbreviation
+            LEFT JOIN course_distribution_constraints cdc
+                ON e.abbreviation = cdc.employee_abbreviation
+            LEFT JOIN subsequent_timeslots_constraints stc
+                ON e.abbreviation = stc.employee_abbreviation
+            LEFT JOIN employee_timeslot_constraints etc
+                ON e.abbreviation = etc.employee_abbreviation
+            GROUP BY 
+                e.abbreviation, e.firstname, e.lastname, lbc.constraint_value, fdc.constraint_value, 
+                bbc.constraint_value, cdc.constraint_value, stc.constraint_value, stc.timeslot_amount;
+        """
+        return self.fetch_data(query)
+
+
+    def collect_preferences_without_timeslots(self):
+        """
+        Sammelt alle Mitarbeiterpräferenzen, die keine Timeslots enthalten.
+        """
+        query = """
+        SELECT 
+            e.abbreviation,
+            e.firstname,
+            e.lastname,
+            lbc.constraint_value lunch_break,
+            fdc.constraint_value free_day,
+            bbc.constraint_value breaks_between,
+            cdc.constraint_value course_distribution,
+            stc.constraint_value subsequent_timeslots,
+            stc.timeslot_amount
+        FROM employees e
+        LEFT JOIN lunch_break_constraints lbc
+        ON e.abbreviation = lbc.employee_abbreviation
+        LEFT JOIN free_day_constraints fdc
+        ON e.abbreviation = fdc.employee_abbreviation
+        LEFT JOIN breaks_between_constraints bbc
+        ON e.abbreviation = bbc.employee_abbreviation
+        LEFT JOIN course_distribution_constraints cdc
+        On e.abbreviation = cdc.employee_abbreviation
+        LEFT JOIN subsequent_timeslots_constraints stc
+        ON e.abbreviation = stc.employee_abbreviation;
+        """
+        return self.fetch_data(query)
+
     def close_connection(self):
         """
         Schließt die Verbindung zur Datenbank.
