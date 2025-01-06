@@ -34,10 +34,10 @@ function loadContentForArea(url, areaId) {
         });
 }
 
-function loadContentForBothAreas(url1, url2) {
-    // Erste graphics-area
-    const graphicsArea1 = document.getElementById("graphics-area-1");
-    fetch(url1)
+function loadContentForArea_Employees(url, areaId) {
+    const content = document.getElementById(areaId);
+    console.log("loadContentForArea_Employees");
+    fetch(url)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Fehler beim Laden der Inhalte");
@@ -45,27 +45,24 @@ function loadContentForBothAreas(url1, url2) {
             return response.text();
         })
         .then(data => {
-            graphicsArea1.innerHTML = data;
-            graphicsArea1.style.display = "flex";
-        })
-        .catch(error => console.error("Fehler beim Laden der ersten Area:", error));
+            // Inhalte in den Bereich einfügen
+            content.innerHTML = data;
 
-    // Zweite graphics-area
-    const graphicsArea2 = document.getElementById("graphics-area-2");
-    fetch(url2)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Fehler beim Laden der Inhalte");
+            // Plotly-Grafik neu laden, falls vorhanden
+            const graphJSONScript = content.querySelector("#cluster-plot-script");
+            if (graphJSONScript) {
+                const graphJSON = JSON.parse(graphJSONScript.textContent);
+                Plotly.newPlot('cluster-plot', graphJSON.data, graphJSON.layout);
             }
-            return response.text();
+
+            // Flexbox-Stile anwenden
+            content.style.display = "flex";
+            content.style.justifyContent = "center";
+            content.style.alignItems = "center";
         })
-        .then(data => {
-            graphicsArea2.innerHTML = data;
-            graphicsArea2.style.display = "flex";
-        })
-        .catch(error => console.error("Fehler beim Laden der zweiten Area:", error));
+        .catch(error => {
+            console.error("Fehler:", error);
+        });
 }
-
-
 
 

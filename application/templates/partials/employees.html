@@ -1,0 +1,12 @@
+<div class="title">
+    <h1>{{ page_title }}</h1>
+</div>
+<section class="graphics-area">
+    <div class="plotly-area">
+        <h2>Cluster Visualisierung</h2>
+        <div id="cluster-plot"></div>
+        <script id="cluster-plot-script" type="application/json">
+            {{ graph_json|safe }}
+        </script>
+    </div>
+</section>

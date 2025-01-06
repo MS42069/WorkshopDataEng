@@ -579,6 +579,24 @@ class DataVisualizer:
 
         # Diagramm anzeigen
         #plt.show()
+    def employee_clustering(self, data):
+        """
+        Visualisiert die Cluster der Mitarbeiterpräferenzen.
+        """
+        import plotly.express as px
+        from sklearn.decomposition import PCA
+
+        # Plotly-Visualisierung
+        fig = px.scatter(
+            data,
+            x='PCA1',
+            y='PCA2',
+            color='cluster',
+            hover_data=['firstname', 'lastname'],
+            title='Cluster Visualisierung (2D PCA)'
+        )
+
+        return fig
 
 
     # TODO DONE: Wie viele Dozenten mögen/mögen nicht um 8:00 aufstehen? -> Was soll das heißte/WIe sollen wir das beantworten?
