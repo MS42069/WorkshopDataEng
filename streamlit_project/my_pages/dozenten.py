@@ -11,7 +11,7 @@ def show():
     # Daten laden
     analyzer = DatabaseAnalyzer(dbname="postgres", user="postgres", password="password")
     visualizer = DataVisualizer()
-    st.title("Zeitslots Analyse")
+    st.title("Dozenten Analyse")
     st.write("Hier kannst du die Präferenzen analysieren und Cluster visualisieren.")
 
     # Datenbankabfrage

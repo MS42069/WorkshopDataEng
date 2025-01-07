@@ -6,6 +6,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
+import streamlit as st
+import plotly.express as px
 
 class DatabaseAnalyzer:
     def __init__(self, dbname, user, password, host="localhost", port=5432):
@@ -474,33 +476,36 @@ class DataVisualizer:
         """
         pass
 
-    def barplot_timeslots(self, data, count_column, output_path, titel):
-        # Seaborn-Stil aktivieren (optional für ein modernes Design)
-        sns.set_theme(style="whitegrid")
-
+    def barplot_timeslots(self, data, count_column, titel):
+        """
+        Erstelle ein interaktives Balkendiagramm mit Plotly und zeige es in Streamlit an.
+        """
         # Daten vorbereiten
-        labels = [f"{row['start_time']} - {row['end_time']}" for _, row in data.iterrows()]
-        belegung = data[count_column]
+        data['Zeitslot'] = data.apply(lambda row: f"{row['start_time']} - {row['end_time']}", axis=1)
 
-        # Balkendiagramm erstellen
-        plt.figure(figsize=(10, 6))  # Diagrammgröße
-        plt.bar(labels, belegung, color="#001145")  # Balkenfarbe auf #001145 setzen
+        # Plotly-Balkendiagramm erstellen
+        fig = px.bar(
+            data,
+            x='Zeitslot',
+            y=count_column,
+            title=titel,
+            labels={'Zeitslot': 'Zeitslot', count_column: 'Anzahl Belegungen'},
+            text=count_column,  # Werte über den Balken anzeigen
+            color='Zeitslot',  # Optionale Farbgebung nach Zeitslot
+        )
 
-        # Achsentitel und Diagrammtitel
-        plt.xlabel('Zeitslot', fontsize=12, labelpad=10)
-        plt.ylabel('Anzahl Belegungen', fontsize=12, labelpad=10)
-
-        # Achsenticks optimieren
-        plt.xticks(rotation=45, ha='right', fontsize=10)
-        plt.yticks(fontsize=10)
-
-        #plt.title(titel)
         # Layout anpassen
-        plt.tight_layout()
+        fig.update_traces(texttemplate='%{text}', textposition='outside')  # Text außerhalb der Balken
+        fig.update_layout(
+            xaxis=dict(title='Zeitslot', tickangle=45),  # Achsentitel und Winkel
+            yaxis=dict(title='Anzahl Belegungen'),
+            title=dict(font=dict(size=20), x=0.5),  # Titel zentrieren
+            margin=dict(t=50, b=50),  # Abstände oben/unten
+            showlegend=False  # Legende ausblenden
+        )
 
-        # Diagramm in Datei speichern
-        plt.savefig(output_path, format="png")
-        plt.close()
+        # Diagramm in Streamlit anzeigen
+        st.plotly_chart(fig, use_container_width=True)
 
     def plot_unpopular_timeslots(self, data):
         """
@@ -625,33 +630,3 @@ class DataVisualizer:
     # DONE: Anzahl der Tage an denen Dozenten nicht um 8:00 Uhr arbeiten möchten in der employee_timeslot_constraints Tabelle
     # TODO Clustering der Dozentenwünsche
     # TODO: Durchschnittlicher Dozentenwunsch (???)
-
-
-
-#def main():
-    # Verbindung zur Datenbank herstellen
-    #analyzer = DatabaseAnalyzer(dbname="postgres", user="postgres", password="password")
-    #visualizer = DataVisualizer()
-
-    # Analyse der unbeliebtesten Zeitslots
-    #print("Unbeliebteste Zeitslots:")
-    #unpopular_timeslots = analyzer.analyze_unpopular_timeslots()
-    #print(unpopular_timeslots)
-    #visualizer.plot_unpopular_timeslots(unpopular_timeslots)
-
-    # Analyse der Mitarbeiterpräferenzen
-    #print("Präferenzen der Mitarbeiter für 8:00 Uhr:")
-    #employee_preferences = analyzer.analyze_employee_preferences()
-    #print(employee_preferences)
-    #visualizer.plot_employee_preferences(employee_preferences)
-    #visualizer.plot_employee_preferences2(employee_preferences)
-
-    # Verbindung schließen
-    #analyzer.close_connection()
-
-#if __name__ == "__main__":
-    #main()
-
-#%%
-
-#%%
