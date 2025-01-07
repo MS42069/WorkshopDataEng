@@ -53,8 +53,7 @@ def analyse_timeslots():
 
 @analysen_bp.route('/analysen/employees')
 
-def employee_preferences_clustering(): # TODO: Bessere Visualisierung -> Ganz viele Dozenten haben keine Angaben und liegen daher identisch an eineem Punkt
-    # Daten laden
+def employee_preferences_clustering():
     data = analyzer.collect_preferences_without_timeslots()
 
     # Daten aufbereiten für Clustering
@@ -110,6 +109,6 @@ def employee_preferences_clustering(): # TODO: Bessere Visualisierung -> Ganz vi
     print(graph_json)
 
     # HTML-Seite mit der Grafik rendern
-    return render_template('partials/employees.html', graph_json=graph_json)
+    return render_template('partials/employees.html', graph_json=graph_json, page_title='Ergebnisse: Dozenten')
 
 

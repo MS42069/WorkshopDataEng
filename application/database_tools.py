@@ -584,7 +584,13 @@ class DataVisualizer:
         Visualisiert die Cluster der Mitarbeiterpräferenzen.
         """
         import plotly.express as px
-        from sklearn.decomposition import PCA
+        import numpy as np
+
+        # Zufälliges Rauschen hinzufügen, nur für Cluster 0
+        noise_scale = 0.8  # Skala des Rauschens (anpassbar)
+        data.loc[data['cluster'] == 0, 'PCA1'] += np.random.normal(0, noise_scale, size=data[data['cluster'] == 0].shape[0])
+        data.loc[data['cluster'] == 0, 'PCA2'] += np.random.normal(0, noise_scale, size=data[data['cluster'] == 0].shape[0])
+
 
         # Plotly-Visualisierung
         fig = px.scatter(
@@ -592,9 +598,25 @@ class DataVisualizer:
             x='PCA1',
             y='PCA2',
             color='cluster',
-            hover_data=['firstname', 'lastname'],
-            title='Cluster Visualisierung (2D PCA)'
+            hover_data={'PCA1': False, 'PCA2': False, 'firstname': True, 'lastname': True},  # Nur Vorname und Nachname anzeigen
+            title='Cluster basierend auf Mitarbeiterpräferenzen',
+            color_continuous_scale=['blue', 'green', 'red']
         )
+
+        # Layout-Anpassungen
+        fig.update_layout(
+            width=1000,  # Breite der Grafik (X-Achse länger machen)
+            height=600,  # Höhe der Grafik
+            xaxis_title=None,  # X-Achsentitel entfernen
+            yaxis_title=None,  # Y-Achsentitel entfernen
+            showlegend=True  # Legende anzeigen lassen
+        )
+
+        # Tooltip weiter anpassen (falls notwendig)
+        fig.update_traces(
+            hovertemplate="<b>%{customdata[0]} %{customdata[1]}</b><extra></extra>"  # Tooltip auf firstname und lastname
+        )
+
 
         return fig
 
