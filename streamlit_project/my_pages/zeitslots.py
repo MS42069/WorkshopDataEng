@@ -1,6 +1,6 @@
 import streamlit as st
-from streamlit_project.tools.data import DatabaseAnalyzer, DataVisualizer
-
+#from streamlit_project.tools.data import DatabaseAnalyzer, DataVisualizer # import für lokale Ausführung
+from tools.data import DatabaseAnalyzer, DataVisualizer # import für Docker Ausführung
 
 
 def show():

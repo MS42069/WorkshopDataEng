@@ -1,0 +1,71 @@
+# Minimal docker-compose file for local development
+# without the backend and frontend services from the student plan project
+
+version: '0.7'
+services:
+
+  streamlit-app:
+    build:
+      context: ${STREAMLIT_FOLDER} # Pfad zur Streamlit-App im .env File
+      dockerfile: ${STREAMLIT_FOLDER}/Dockerfile
+    environment:
+      - DB_HOST=dev-stundenplan-postgres
+      - DB_PORT=5432
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+    depends_on:
+      - dev-stundenplan-postgres
+    networks:
+      - default
+    ports:
+      - "8501:8501"  # Port für Streamlit
+
+  dev-traefik:
+    image: traefik:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "8081:8080"
+      - "80:80"
+      - "443:443"
+
+  # PgAdmin container to allow easier control of the postgres container
+  # Does initialize the connection automatically with the 'servers.json' file
+  stundenplan-pgadmin:
+    image: "dpage/pgadmin4:latest"
+    restart: always
+    depends_on:
+      - dev-stundenplan-postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: pg_password
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      SCRIPT_NAME: "/pgadmin"
+    ports:
+      - "5050:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.stundenplan-pgadmin.entrypoints=web"
+      - "traefik.http.routers.stundenplan-pgadmin.rule=Host(`${HOST:-localhost}`) && PathPrefix(`/pgadmin`)"
+
+  dev-stundenplan-postgres:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_HOST_AUTH_METHOD: "md5"
+    volumes:
+      # Mount lokal development db to image
+      - ${DB_LOKAL:-/var/lib/postgresql/dev/data}:/var/lib/postgresql/data
+    ports:
+      # Expose port for external debugging
+      - "5432:5432"

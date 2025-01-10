@@ -1,7 +1,7 @@
 import streamlit as st
-import my_pages.home as home
-import my_pages.dozenten as dozenten
-import my_pages.zeitslots as zeitslots
+from my_pages import home
+from my_pages import dozenten
+from my_pages import zeitslots
 import sys
 import os
 

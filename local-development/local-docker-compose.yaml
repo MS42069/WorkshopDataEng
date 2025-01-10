@@ -12,10 +12,11 @@
 
 version: '0.7'
 services:
-  flask-app:
+
+  streamlit-app:
     build:
-      context: ${APP_FOLDER} #TODO: Pfad im .env file setzen
-      dockerfile: ${APP_FOLDER}/docker/Dockerfile
+      context: ${STREAMLIT_FOLDER} # Pfad zur Streamlit-App im .env File
+      dockerfile: ${STREAMLIT_FOLDER}/Dockerfile
     environment:
       - DB_HOST=dev-stundenplan-postgres
       - DB_PORT=5432
@@ -27,7 +28,7 @@ services:
     networks:
       - default
     ports:
-      - "5001:5000"
+      - "8501:8501"  # Port für Streamlit
 
   dev-traefik:
     image: traefik:latest

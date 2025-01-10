@@ -1,7 +1,8 @@
 
 import streamlit as st
 import numpy as np
-from streamlit_project.tools.data import DatabaseAnalyzer, DataVisualizer
+# from tools.data import DatabaseAnalyzer, DataVisualizer #import für lokale Ausführung
+from tools.data import DatabaseAnalyzer, DataVisualizer #import für Docker Ausführung
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
@@ -9,7 +10,7 @@ from sklearn.decomposition import PCA
 
 def show():
     # Daten laden
-    analyzer = DatabaseAnalyzer(dbname="postgres", user="postgres", password="password")
+    analyzer = DatabaseAnalyzer()
     visualizer = DataVisualizer()
     st.title("Dozenten Analyse")
     st.write("Hier kannst du die Präferenzen analysieren und Cluster visualisieren.")

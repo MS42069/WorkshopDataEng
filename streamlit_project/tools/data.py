@@ -10,7 +10,7 @@ import streamlit as st
 import plotly.express as px
 
 class DatabaseAnalyzer:
-    def __init__(self, dbname, user, password, host="localhost", port=5432):
+    def __init__(self, dbname="postgres", user="postgres", password="password", host="dev-stundenplan-postgres", port=5432):
         """
         Initialisiert die Verbindung zur PostgreSQL-Datenbank.
         """
