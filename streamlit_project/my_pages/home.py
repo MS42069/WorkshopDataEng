@@ -1,16 +1,21 @@
 import streamlit as st
+import os
 
 def show():
     # Willkommens-Bereich
-    st.title("Willkommen zur Analyse-App")
-    st.header("Erkunde deine Daten")
+    st.title("Stundenplan Insights")
+    st.header("Stundenpläne analysieren, visualisieren und besser verstehen.")
     st.write("""
-            Diese App ermöglicht es dir, Daten zu analysieren, Zeitslots zu visualisieren und interaktive Ergebnisse zu betrachten.
-            Wähle eine Funktion aus der Navigation aus, um loszulegen.
+            Willkommen! Diese App bietet dir eine umfassende Analyse der Stundenpläne der Fachhochschule Wedel. Erfahre mehr über Dozenten, Zeitslots und Optimierungsmöglichkeiten.
         """)
 
-    # Banner oder Bild
-    st.image("https://via.placeholder.com/800x200?text=Willkommen+zur+Analyse-App", use_column_width=True)
+    # Absoluter Pfad zum Bild
+    current_dir = os.path.dirname(__file__)
+    image_path = os.path.abspath(os.path.join(current_dir, "../images/homepage_background.jpg"))
+
+    # Bild anzeigen
+    st.image(image_path, use_container_width=True)
+
 
     # Call-to-Action Bereich
     st.markdown("### Starte jetzt!")

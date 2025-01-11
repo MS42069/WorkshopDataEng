@@ -432,7 +432,6 @@ class DatabaseAnalyzer:
         """
         return self.fetch_data(query)
 
-
     def collect_preferences_without_timeslots(self):
         """
         Sammelt alle Mitarbeiterpräferenzen, die keine Timeslots enthalten.
@@ -604,7 +603,6 @@ class DataVisualizer:
             y='PCA2',
             color='cluster',
             hover_data={'PCA1': False, 'PCA2': False, 'firstname': True, 'lastname': True},  # Nur Vorname und Nachname anzeigen
-            title='Cluster basierend auf Mitarbeiterpräferenzen',
             color_continuous_scale=['blue', 'green', 'red']
         )
 
