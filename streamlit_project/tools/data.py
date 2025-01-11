@@ -498,7 +498,13 @@ class DataVisualizer:
         fig.update_layout(
             xaxis=dict(title='Zeitslot', tickangle=45),  # Achsentitel und Winkel
             yaxis=dict(title='Anzahl Belegungen'),
-            title=dict(font=dict(size=20), x=0.5),  # Titel zentrieren
+            title=dict(
+                text=titel,  # Diagrammtitel
+                font=dict(size=20),  # Schriftgröße des Titels
+                x=0.5,  # Zentriere den Titel horizontal
+                xanchor='center',  # Verankerung horizontal auf "Mitte"
+                yanchor='top'  # Verankerung vertikal auf "oben"
+            ),
             margin=dict(t=50, b=50),  # Abstände oben/unten
             showlegend=False  # Legende ausblenden
         )
