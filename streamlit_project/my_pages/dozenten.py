@@ -50,8 +50,20 @@ def show():
     av = average_dozent()
     st.write(av)
 
+    # Zwei Spalten erstellen
+    col1, col2 = st.columns(2)
 
+    # Tabelle für Dozenten, die nicht um 8 Uhr arbeiten wollen
+    with col1:
+        st.subheader("Dozenten, die nicht um 8 Uhr arbeiten wollen")
+        not_worktimes = dont_want_to_work_at_8()[['firstname', 'lastname']]
+        st.write(not_worktimes)
 
+    # Tabelle für Dozenten, die um 8 Uhr arbeiten
+    with col2:
+        st.subheader("Dozenten, die um 8 Uhr arbeiten")
+        worktimes = work_at_8()[['firstname', 'lastname']]
+        st.write(worktimes)
 
 
 def clustering_only_preferences():
@@ -168,6 +180,22 @@ def average_dozent():
     average_preferences_df['Anzahl keiner Präferenzen'] = zero_counts.values
 
     return average_preferences_df
+
+def work_at_8():
+    # Datenbankabfrage
+    def load_data():
+        return analyzer.worktimes_8_2022()
+
+    data = load_data()
+    return data
+
+def dont_want_to_work_at_8():
+    # Datenbankabfrage
+    def load_data():
+        return analyzer.employee_preferences_not_8()
+
+    data = load_data()
+    return data
 
 
 
