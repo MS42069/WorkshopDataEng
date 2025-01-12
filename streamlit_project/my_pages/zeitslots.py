@@ -24,6 +24,13 @@ def show():
 
     data_courses_sorted , data_events_sorted, data_courses_events_sorted = load_data()
 
+    # Top 3 Zeitslots mit den meisten Kursen
+    st.subheader("Top 3 Zeitslots mit den meisten Kursen")
+    top3 = data_courses_events_sorted.head(3)
+    top3['Platzierung'] = range(1, len(top3) + 1)
+    top3_filtered = top3[['Platzierung', 'start_time', 'end_time']].reset_index(drop=True)
+
+    st.write(top3_filtered)
     #Visualisierung der Daten
     visualizer.barplot_timeslots(data_courses_sorted, 'course_count', 'Anzahl tatsächlicher Kurse pro Zeitslot')
     visualizer.barplot_timeslots(data_events_sorted, 'event_count', 'Anzahl verfügbarer Kurse pro Zeitslot')

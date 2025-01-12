@@ -12,6 +12,16 @@ visualizer = DataVisualizer()
 def show():
 
     st.title("Dozenten Analyse")
+    preferences = ['lunch_break', 'free_day', 'breaks_between', 'course_distribution', 'subsequent_timeslots', 'timeslot_amount']
+    meaning_preferences = ['Mittagspause', 'Freier Tag', 'Pausen zwischen den Kursen', 'Kursverteilung', 'aufeinanderfolgende Timeslots', 'Anzahl der Timeslots']
+
+    # Daten laden# Einführung
+    st.subheader("Erläuterung der Präferenzen")
+    st.write("Hier sind die Präferenzen, die in der Dozenten-Analyse berücksichtigt werden, sowie deren Bedeutung:")
+
+    # Darstellung als Tabelle
+    preferences_table = {"Präferenz": preferences, "Bedeutung": meaning_preferences}
+    st.table(preferences_table)
 
     data_pref, data_pref_readable = clustering_only_preferences()
     data_pref_timeslots, data_pref_timeslots_readable = clustering_preferences_and_timeslots()
