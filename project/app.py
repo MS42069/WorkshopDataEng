@@ -1,7 +1,7 @@
 import streamlit as st
-from my_pages import home
-from my_pages import dozenten
-from my_pages import zeitslots
+from frontend import home
+from frontend import dozenten
+from frontend import zeitslots
 import sys
 import os
 
@@ -13,7 +13,7 @@ st.set_page_config(page_title="Analyse-App", layout="centered", initial_sidebar_
 # Seiten-Navigation
 
 # Absoluter Pfad zum Bild
-logo_path = "./images/logo_ohne_hintergrund.png"
+logo_path = "assets/images/logo_ohne_hintergrund.png"
 st.sidebar.image(logo_path, use_container_width=True)
 page = st.sidebar.selectbox("Navigation", ["Startseite", "Dozenten Analyse", "Zeitslots Analyse"])
 

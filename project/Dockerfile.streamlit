@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Abhängigkeiten kopieren und installieren
-COPY requirements.txt /app/requirements.txt
+COPY requirements.streamlit.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Alle Dateien ins Arbeitsverzeichnis kopieren

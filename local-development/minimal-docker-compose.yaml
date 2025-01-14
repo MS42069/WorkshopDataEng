@@ -7,7 +7,7 @@ services:
   streamlit-app:
     build:
       context: ${STREAMLIT_FOLDER} # Pfad zur Streamlit-App im .env File
-      dockerfile: ${STREAMLIT_FOLDER}/Dockerfile
+      dockerfile: ${STREAMLIT_FOLDER}/Dockerfile.streamlit
     environment:
       - DB_HOST=dev-stundenplan-postgres
       - DB_PORT=5432

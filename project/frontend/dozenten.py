@@ -2,7 +2,8 @@
 import streamlit as st
 import numpy as np
 # from tools.data import DatabaseAnalyzer, DataVisualizer #import für lokale Ausführung
-from tools.data import DatabaseAnalyzer, DataVisualizer #import für Docker Ausführung
+#from tools.data import DatabaseAnalyzer, DataVisualizer #import für Docker Ausführung
+from backend.database.data import DatabaseAnalyzer, DataVisualizer
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA

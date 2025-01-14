@@ -11,7 +11,7 @@ def show():
 
     # Absoluter Pfad zum Bild
     current_dir = os.path.dirname(__file__)
-    image_path = os.path.abspath(os.path.join(current_dir, "../images/homepage_background.jpg"))
+    image_path = os.path.abspath(os.path.join(current_dir, "../assets/images/homepage_background.jpg"))
 
     # Bild anzeigen
     st.image(image_path, use_container_width=True)

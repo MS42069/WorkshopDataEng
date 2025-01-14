@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Anforderungen kopieren und installieren
 COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.streamlit.txt
 
 # App-Dateien kopieren
 COPY . .

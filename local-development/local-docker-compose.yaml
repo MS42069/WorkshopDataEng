@@ -65,7 +65,7 @@ services:
   # Image for local development
   stundenplan-backend:
     build:
-      dockerfile: ${BACKEND_FOLDER}/docker/Dockerfile
+      dockerfile: ${BACKEND_FOLDER}/docker/Dockerfile.streamlit
       context: ${BACKEND_FOLDER}
     restart: unless-stopped
     depends_on:
